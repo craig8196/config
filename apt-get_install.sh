@@ -6,7 +6,7 @@
 apt-get -y install synaptic software-center
 # Text editors
 apt-get -y install vim geany
-# Internet browsers
+# Install firefox
 apt-get -y install firefox
 # Install chrome
 sudo apt-get install libxss1 libappindicator1 libindicator7
@@ -16,9 +16,9 @@ sudo dpkg -i google-chrome*.deb
 # Python
 apt-get -y install python python3 python-pip python-numpy python-scipy
 # Java
-# apt-get -y install default-jre default-jdk
+
 # R
-sudo apt-get -y install r-base r-base-core
+# sudo apt-get -y install r-base r-base-core
 # Audio
 apt-get -y install audacity
 # Video
@@ -26,6 +26,5 @@ apt-get -y install vlc
 # Office Productivity
 apt-get -y install libreoffice
 # Spin Prerequisites
-apt-get -y install byacc flex
-
+# apt-get -y install byacc flex
 
