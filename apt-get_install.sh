@@ -2,6 +2,11 @@
 # Run under sudo.
 # This will install only necessary applications.
 
+# Update before proceeding
+apt-get update
+
+# Terminal of choice
+apt-get -y install gnome-terminal
 # Software finders
 apt-get -y install synaptic software-center
 # Text editors
@@ -12,8 +17,7 @@ apt-get -y install firefox
 apt-get -y install python python3 python-pip python-numpy python-scipy
 apt-get -y install ipython
 # Java
-
-
+apt-get -y install eclipse
 # Audio
 apt-get -y install audacity
 # Video
@@ -28,11 +32,3 @@ apt-get -y install libreoffice
 # apt-get -y install byacc flex
 # R
 # sudo apt-get -y install r-base r-base-core
-
-
-# Clean up
-echo "Cleaning up." &&
-sudo apt-get -f install &&
-sudo apt-get autoremove &&
-sudo apt-get -y autoclean &&
-sudo apt-get -y clean
