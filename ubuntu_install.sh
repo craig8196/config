@@ -5,9 +5,12 @@
 # Update before proceeding
 apt-get update
 
+<<<<<<< HEAD
 
 # Preferred Terminal
 apt-get -y install terminator
+=======
+>>>>>>> 622d2ec23a6f63ba6d87afddd447c4c31dd61161
 # Software finders
 apt-get -y install synaptic software-center
 # Text editors
