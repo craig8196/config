@@ -37,6 +37,10 @@ cat >> ~/.bashrc <<EOF
 export PATH="\$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:\$PATH"
 EOF
 export PATH=~/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH
+# Stack
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
+echo 'deb http://download.fpcomplete.com/ubuntu trusty main'|sudo tee /etc/apt/sources.list.d/fpco.list
+sudo apt-get update && sudo apt-get install stack -y
 
 ###### These were for classes, but are no longer needed. ######
 # Spin Prerequisites
