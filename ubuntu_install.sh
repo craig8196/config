@@ -57,3 +57,4 @@ apt-get install oracle-java8-installer
 java -version
 javac -version
 apt-get install oracle-java8-set-default
+
