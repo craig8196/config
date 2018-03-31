@@ -1,5 +1,10 @@
+" Set color scheme
+" Colors get reset when setting this so we do it first
+colo desert
+
 execute pathogen#infect()
 
+" Set Indentation
 filetype plugin indent on
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -8,12 +13,23 @@ set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
 
-" Turn on line numbers
-set number
-
-" Set red column line
+" Set 80+ characters column line
 set colorcolumn=81
-hi ColorColumn ctermbg=red guibg=red
+hi ColorColumn ctermfg=red ctermbg=darkgrey
+
+" Turn on line numbers
+set number relativenumber
+augroup numbertoggle
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+    autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
+augroup END
+
+" Turn on auto-reload of .vimrc
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
 
 " Shift tab mapped to inverse tab for command and insert modes
 nnoremap <Tab> >>_
@@ -58,10 +74,21 @@ let g:syntastic_c_include_dirs = [
     \ 'header',
     \ 'headers',
     \ 'include/feeds',
-    \ '../include',
-    \ '../../include',
     \ '../../../include',
-    \ '../../../include/feeds']
+    \ '../../../../include',
+    \ '../../../include/feeds',
+    \ '../../../include/text',
+    \ '../../../libs/feedsmisc/include',
+    \ '../../../libs/ctoolbox/include',
+    \ '../../../libs/twist/include',
+    \ '../../../libs/cmicrobase/include',
+    \ '../../../libs/fframe/include',
+    \ '.']
+
+" Set folding to close all folds on opening .c files
+autocmd FileType c set foldmethod=syntax
+autocmd FileType c set foldnestmax=1
+"autocmd FileType c set foldclose=all
 
 " Python configurations
 let g:syntastic_python_checkers = ['pylint']
