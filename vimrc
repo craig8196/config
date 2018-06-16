@@ -6,12 +6,20 @@ execute pathogen#infect()
 
 " Set Indentation
 filetype plugin indent on
-" show existing tab with 4 spaces width
-set tabstop=4
-" when indenting with '>', use 4 spaces width
-set shiftwidth=4
+" Show existing tab with 4 spaces width
+" When indenting with '>', use 4 spaces width
 " On pressing tab, insert 4 spaces
-set expandtab
+set tabstop=4 shiftwidth=4 expandtab
+" File specific indentation
+autocmd FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
+autocmd FileType json set tabstop=2|set shiftwidth=2|set expandtab
+autocmd FileType xml set tabstop=2|set shiftwidth=2|set expandtab
+
+" Create custom commands
+command! -nargs=0 XmlPretty %!xmllint --format %
+command! -nargs=0 JsonPretty %!python -m json.tool
+command! -nargs=0 Hex %!xxd
+command! -nargs=0 HexSave %!xxd -r
 
 " Set 80+ characters column line
 set colorcolumn=81
