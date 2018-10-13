@@ -12,6 +12,9 @@ sudo apt -y install curl wget
 # Install git
 sudo apt -y install git
 
+# Install ctags
+sudo apt -y install exuberant-ctags
+
 # Text editor and additions
 sudo apt -y install vim
 # Install pathogen
