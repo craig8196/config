@@ -17,23 +17,8 @@ sudo apt -y install exuberant-ctags
 
 # Text editor and additions
 sudo apt -y install vim
-# Install pathogen
-mkdir -p ~/.vim/autoload ~/.vim/bundle
-if [ -f ~/.vim/autoload/pathogen.vim ];
-then
-    echo "Removing existing pathogen.vim file"
-    rm ~/.vim/autoload/pathogen.vim
-fi
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-# Install syntastic
-if [ -d ~/.vim/bundle/syntastic ];
-then
-    echo "Removing existing syntastic directory"
-    rm -r ~/.vim/bundle/syntastic
-fi
-git clone --depth=1 https://github.com/vim-syntastic/syntastic.git ~/.vim/bundle/syntastic
-# Install Javascript configurations
-git clone https://github.com/pangloss/vim-javascript.git ~/.vim/bundle/vim-javascript
+# Install Vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 # Copy current vim configurations.
 if [ -f ~/.vimrc ]; 
 then
@@ -44,9 +29,13 @@ else
 fi
 cp ~/config/vimrc ~/.vimrc
 
+# General
+sudo apt -y install build-essential cmake
+
 # Python
-sudo apt -y install python python3 
-sudo apt -y install python-pip python-numpy python-scipy
+sudo apt -y install python python3 python3-dev
+sudo apt -y install python-pip python-numpy python-scipy python3-pip
+pip3 install neovim
 sudo apt -y install ipython
 
 # Audio
