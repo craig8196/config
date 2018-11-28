@@ -1,10 +1,18 @@
 """""""""""""""""""""""""""""""
 " Craig's Vimrc Configuration "
 """""""""""""""""""""""""""""""
+
+""" START default recommended settings
 set nocompatible
 syntax on
 set nowrap
 set encoding=utf8
+""" END default recommended settings
+
+
+""" START General Remaps
+let mapleader=","
+""" END General Remaps
 
 
 """ START Vundle Configuration
@@ -20,15 +28,20 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Utility
+" <leader>b to list buffers, <enter> to select, gb and gB to flip through
+" the list.
 Plugin 'jeetsukumaran/vim-buffergator'
+" Open a directory or press <C-n>
 Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'godlygeek/tabular'
 Plugin 'BufOnly.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'danro/rename.vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'ervandew/supertab'
-" <leader>ww on windows you want to swap
+" I don't think supertab is useful or being used at all.
+" Plugin 'ervandew/supertab'
+" <leader>ww on windows you want to swap.
 Plugin 'wesQ3/vim-windowswap'
 
 " Generic Programming Support
@@ -40,7 +53,10 @@ Plugin 'gilsondev/searchtasks.vim'
 Plugin 'benmills/vimux'
 Plugin 'tpope/vim-dispatch'
 Plugin 'scrooloose/syntastic'
-Plugin 'townk/vim-autoclose'
+" Don't use vim-autoclose with youcompleteme, causes issue with exiting from
+" insert to normal mode, and can be a bit annoying for some things
+" Plugin 'townk/vim-autoclose'
+" See documentation here: https://vimawesome.com/plugin/surround-vim
 Plugin 'tpope/vim-surround'
 " Completion and suggestions
 Plugin 'valloric/youcompleteme'
@@ -60,7 +76,7 @@ Plugin 'tpope/vim-fugitive'
 
 " Writing
 Plugin 'reedes/vim-pencil'
-"Plugin 'dpelle/vim-LanguageTool'
+" Plugin 'dpelle/vim-LanguageTool'
 Plugin 'rhysd/vim-grammarous'
 
 " Markdown
@@ -108,7 +124,24 @@ call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
 call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+" Symbols for git status
+"let g:NERDTreeIndicatorMapCustom = {
+"    \ "Modified"  : "✹",
+"    \ "Staged"    : "✚",
+"    \ "Untracked" : "✭",
+"    \ "Renamed"   : "➜",
+"    \ "Unmerged"  : "═",
+"    \ "Deleted"   : "✖",
+"    \ "Dirty"     : "✗",
+"    \ "Clean"     : "✔︎",
+"    \ "Ignored"   : "☒",
+"    \ "Unknown"   : "?"
+"    \ }
 """ END Nerdtree Configuration
+
+""" START youcompleteme Configuration
+let g:ycm_min_num_of_chars_for_completion=4
+""" END youcompleteme Configuration
 
 " Turn on line numbers, relative line numbers, and ruler
 " set ruler
