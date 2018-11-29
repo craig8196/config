@@ -1,20 +1,26 @@
-"""""""""""""""""""""""""""""""
-" Craig's Vimrc Configuration "
-"""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                          Craig's Vim Configuration                           "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START default recommended settings
 set nocompatible
 syntax on
 set nowrap
 set encoding=utf8
 """ END default recommended settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START General Remaps
 let mapleader=","
 """ END General Remaps
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START Vundle Configuration
 
 " Disable file type for vundle
@@ -34,8 +40,13 @@ Plugin 'jeetsukumaran/vim-buffergator'
 " Open a directory or press <C-n>
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+" http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+" :Tabularize /<regex>
+" :Tab /<regex>
 Plugin 'godlygeek/tabular'
+" Run :BufOnly to close all buffers but the current one
 Plugin 'BufOnly.vim'
+" Fuzzy file finder, use <c-p> to invoke
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'danro/rename.vim'
 Plugin 'majutsushi/tagbar'
@@ -57,6 +68,7 @@ Plugin 'scrooloose/syntastic'
 " insert to normal mode, and can be a bit annoying for some things
 " Plugin 'townk/vim-autoclose'
 " See documentation here: https://vimawesome.com/plugin/surround-vim
+" Simple change surround in normal mode: cs<from><to>
 Plugin 'tpope/vim-surround'
 " Completion and suggestions
 Plugin 'valloric/youcompleteme'
@@ -93,7 +105,10 @@ call vundle#end()
 filetype plugin indent on
 
 """ END Vundle Configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START Nerdtree Configuration
 " Open nerdtree on trying to open directory
 autocmd StdinReadPre * let s:std_in=1
@@ -107,8 +122,8 @@ let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 " NERDTress File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+    exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+    exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
 call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
@@ -138,11 +153,17 @@ call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 "    \ "Unknown"   : "?"
 "    \ }
 """ END Nerdtree Configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START youcompleteme Configuration
 let g:ycm_min_num_of_chars_for_completion=4
 """ END youcompleteme Configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Basic personal settings and syntastic configurations
 " Turn on line numbers, relative line numbers, and ruler
 " set ruler
 set number
@@ -251,8 +272,6 @@ let g:syntastic_c_include_dirs = [
     \ '../../../libs/feedsmisc/include',
     \ '../../../libs/ctoolbox/include',
     \ '../../../libs/twist/include',
-    \ '../../../libs/cmicrobase/include',
-    \ '../../../libs/fframe/include',
     \ '.']
 
 " Set folding to close all folds on opening .c files
@@ -272,6 +291,24 @@ let g:syntastic_javascript_checkers = ['eslint']
 " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+""" END Basic personal settings and syntastic configurations
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" For more advanced examples: https://gist.github.com/tpope/287147
+""" START Tabularize settings
+if exists(":Tabularize")
+" Examples:
+"    nmap <Leader>a= :Tabularize /=<CR>
+"    vmap <Leader>a= :Tabularize /=<CR>
+"    nmap <Leader>a: :Tabularize /:\zs<CR>
+"    vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
+""" END Tabularize settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+" I don't remember what this is for... why noremap space to za?
 nnoremap <space> za
 
