@@ -2,16 +2,14 @@
 "                          Craig's Vim Configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" TODO figure out why I can't shift tab in insert mode
-" TODO figure out why I can't tab/shift tab in visual mode
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START default recommended settings
+""" START Default Recommended Settings
 set nocompatible
 syntax on
 set nowrap
 set encoding=utf8
-""" END default recommended settings
+""" END Default Recommended Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -58,6 +56,7 @@ Plugin 'danro/rename.vim'
 " nmap <F8> :TagbarToggle<CR>
 Plugin 'majutsushi/tagbar'
 " I don't think supertab is useful or being used at all.
+" Leave this comment here so I don't reinstall it.
 " Plugin 'ervandew/supertab'
 " <leader>ww on windows you want to swap.
 Plugin 'wesQ3/vim-windowswap'
@@ -176,8 +175,9 @@ let g:ycm_min_num_of_chars_for_completion=4
 """ END youcompleteme Configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Basic personal settings and syntastic configurations
+""" START Basic Look-and-Feel Settings
 " Turn on line numbers, relative line numbers, and ruler
 " set ruler
 set number
@@ -191,10 +191,6 @@ augroup END
 " When indenting with '>', use 4 spaces width
 " On pressing tab, insert 4 spaces
 set tabstop=4 shiftwidth=4 smarttab expandtab
-
-" File specific indentation
-autocmd FileType javascript set tabstop=2|set shiftwidth=2
-autocmd FileType json set tabstop=2|set shiftwidth=2
 
 " Always display status line
 set laststatus=1
@@ -220,40 +216,30 @@ let base16colorspace=256
 " Set 80+ characters column line
 set colorcolumn=81
 hi ColorColumn ctermfg=red ctermbg=darkgrey
+""" END Basic Look-and-Feel Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Create custom commands
-" JSON and XML pretty print
-" Hex and save as hex
-command! -nargs=0 JsonPretty %!python -m json.tool
-command! -nargs=0 Hex %!xxd
-command! -nargs=0 HexSave %!xxd -r
 
-" Turn on auto-reload of .vimrc
-augroup myvimrc
-    au!
-    au BufWritePost .vimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-augroup END
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Tabularize settings
+" For more advanced examples: https://gist.github.com/tpope/287147
+if exists(":Tabularize")
+" Examples:
+"    nmap <Leader>a= :Tabularize /=<CR>
+"    vmap <Leader>a= :Tabularize /=<CR>
+"    nmap <Leader>a: :Tabularize /:\zs<CR>
+"    vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
+""" END Tabularize settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Shift tab mapped to inverse tab for command and insert modes
-nnoremap <Tab> >>_
-nnoremap <S-Tab> <<_
-inoremap <S-Tab> <C-d>
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
 
-" Map split pane navigation commands
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Syntastic and AutoCompletion Settings
 " Syntastic error iteration shortcuts
-" TODO set <F1> to generate syntastic warnings?
+nnoremap <F1> :SyntasticToggleMode<CR>
 nnoremap <F2> :lnext<CR>
 nnoremap <F3> :lprevious<CR>
-
-" Shortcut for quitting a buffer
-nmap <F4> :q<CR>
 
 " Syntastic settings
 " set statusline+=%#warningmsg#
@@ -290,11 +276,6 @@ let g:syntastic_c_include_dirs = [
     \ '../../../libs/twist/include',
     \ '.']
 
-" Set folding to close all folds on opening .c files
-autocmd FileType c set foldmethod=syntax
-autocmd FileType c set foldnestmax=1
-"autocmd FileType c set foldclose=all
-
 " Python configurations
 let g:syntastic_python_checkers = ['pylint']
 
@@ -307,8 +288,34 @@ let g:syntastic_javascript_checkers = ['eslint']
 " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-""" END Basic personal settings and syntastic configurations
+""" END Syntastic and AutoCompletion Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START C Settings
+" Set folding
+autocmd FileType c set foldmethod=syntax
+autocmd FileType c set foldnestmax=1
+"autocmd FileType c set foldclose=all
+""" END C Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START JavaScript Settings
+autocmd FileType javascript set tabstop=2|set shiftwidth=2
+""" END JavaScript Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START JSON Settings
+autocmd FileType json set tabstop=2|set shiftwidth=2
+command! -nargs=0 JsonPretty %!python -m json.tool
+""" END JSON Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START XML Settings
@@ -318,17 +325,59 @@ command! -nargs=0 XmlPretty %!xmllint --format %
 """ END XML Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Tabularize settings
-" For more advanced examples: https://gist.github.com/tpope/287147
-if exists(":Tabularize")
-" Examples:
-"    nmap <Leader>a= :Tabularize /=<CR>
-"    vmap <Leader>a= :Tabularize /=<CR>
-"    nmap <Leader>a: :Tabularize /:\zs<CR>
-"    vmap <Leader>a: :Tabularize /:\zs<CR>
-endif
-""" END Tabularize settings
+""" START HEX Settings
+" Hex and save as hex
+command! -nargs=0 Hex %!xxd
+command! -nargs=0 HexSave %!xxd -r
+""" END HEX Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Markdown Settings
+" Open markdown files with Chrome.
+autocmd BufEnter *.md exe 'noremap <F5> : !/usr/bin/google-chrome %:p<CR><CR>'
+""" END Markdown Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Tab and Shift Tab Mappings
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-d>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+""" END Tab and Shift Tab Mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Split Pane Navigation
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
+""" END Split Pane Navigation
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+ 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Force Quit
+nnoremap <F4> :q!<CR>
+""" END Force Quit
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Autoreload
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
+""" END Autoreload
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -336,9 +385,3 @@ endif
 " Toggles fold though...
 nnoremap <space> za
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Markdown View-in-Chrome Settings
-" Open markdown files with Chrome.
-autocmd BufEnter *.md exe 'noremap <F5> : !/usr/bin/google-chrome %:p<CR><CR>'
-""" END Markdown View-in-Chrome Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
