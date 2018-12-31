@@ -1,7 +1,9 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                          Craig's Vim Configuration                           "
+"                          Craig's Vim Configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" TODO figure out why I can't shift tab in insert mode
+" TODO figure out why I can't tab/shift tab in visual mode
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START default recommended settings
@@ -39,7 +41,9 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'jeetsukumaran/vim-buffergator'
 " Open a directory or press <C-n>
 Plugin 'scrooloose/nerdtree'
+" Will place git characters next to changed/tracked files
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+" Tabular is about aligning text
 " http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 " :Tabularize /<regex>
 " :Tab /<regex>
@@ -48,7 +52,10 @@ Plugin 'godlygeek/tabular'
 Plugin 'BufOnly.vim'
 " Fuzzy file finder, use <c-p> to invoke
 Plugin 'ctrlpvim/ctrlp.vim'
+" Rename a file, use :rename[!] {newname}
 Plugin 'danro/rename.vim'
+" Open sidebar to browse ctags of current file
+" nmap <F8> :TagbarToggle<CR>
 Plugin 'majutsushi/tagbar'
 " I don't think supertab is useful or being used at all.
 " Plugin 'ervandew/supertab'
@@ -157,6 +164,13 @@ call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Tagbar Configuration
+nmap <F8> :TagbarToggle<CR>
+""" END Tagbar Configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START youcompleteme Configuration
 let g:ycm_min_num_of_chars_for_completion=4
 """ END youcompleteme Configuration
@@ -179,9 +193,8 @@ augroup END
 set tabstop=4 shiftwidth=4 smarttab expandtab
 
 " File specific indentation
-autocmd FileType javascript set tabstop=2|set shiftwidth=2|set
-autocmd FileType json set tabstop=2|set shiftwidth=2|set
-autocmd FileType xml set tabstop=2|set shiftwidth=2|set
+autocmd FileType javascript set tabstop=2|set shiftwidth=2
+autocmd FileType json set tabstop=2|set shiftwidth=2
 
 " Always display status line
 set laststatus=1
@@ -211,7 +224,6 @@ hi ColorColumn ctermfg=red ctermbg=darkgrey
 " Create custom commands
 " JSON and XML pretty print
 " Hex and save as hex
-command! -nargs=0 XmlPretty %!xmllint --format %
 command! -nargs=0 JsonPretty %!python -m json.tool
 command! -nargs=0 Hex %!xxd
 command! -nargs=0 HexSave %!xxd -r
@@ -236,8 +248,12 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
 " Syntastic error iteration shortcuts
+" TODO set <F1> to generate syntastic warnings?
 nnoremap <F2> :lnext<CR>
 nnoremap <F3> :lprevious<CR>
+
+" Shortcut for quitting a buffer
+nmap <F4> :q<CR>
 
 " Syntastic settings
 " set statusline+=%#warningmsg#
@@ -294,10 +310,17 @@ let g:syntastic_javascript_checkers = ['eslint']
 """ END Basic personal settings and syntastic configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START XML Settings
+let g:xml_syntax_folding=1
+autocmd FileType xml set tabstop=2|set shiftwidth=2|setlocal foldmethod=syntax
+command! -nargs=0 XmlPretty %!xmllint --format %
+""" END XML Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" For more advanced examples: https://gist.github.com/tpope/287147
 """ START Tabularize settings
+" For more advanced examples: https://gist.github.com/tpope/287147
 if exists(":Tabularize")
 " Examples:
 "    nmap <Leader>a= :Tabularize /=<CR>
@@ -310,5 +333,12 @@ endif
 
 
 " I don't remember what this is for... why noremap space to za?
+" Toggles fold though...
 nnoremap <space> za
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Markdown View-in-Chrome Settings
+" Open markdown files with Chrome.
+autocmd BufEnter *.md exe 'noremap <F5> : !/usr/bin/google-chrome %:p<CR><CR>'
+""" END Markdown View-in-Chrome Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

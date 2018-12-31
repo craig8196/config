@@ -15,6 +15,9 @@ sudo apt -y install git
 # Install ctags
 sudo apt -y install exuberant-ctags
 
+# Install XML tools (used in vim commands)
+sudo apt -y install libxml2-utils
+
 # Text editor and additions
 sudo apt -y install vim
 # Install Vundle
