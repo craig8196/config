@@ -21,6 +21,16 @@ let mapleader=","
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Autoreload
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
+""" END Autoreload
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START Vundle Configuration
 
 " Disable file type for vundle
@@ -77,7 +87,8 @@ Plugin 'scrooloose/syntastic'
 " Simple change surround in normal mode: cs<from><to>
 Plugin 'tpope/vim-surround'
 " Completion and suggestions
-Plugin 'valloric/youcompleteme'
+" TODO Currently conflicts with my inoremap <S-Tab> mapping
+" Plugin 'valloric/youcompleteme'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -86,7 +97,8 @@ else
   Plugin 'roxma/vim-hug-neovim-rpc'
 endif
 let g:deoplete#enable_at_startup = 1
-Plugin 'SirVer/ultisnips'
+" Deactivated ultisnips because it interferes with shift tab in visual mode
+" Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
 " Git
@@ -114,6 +126,16 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Split Pane Navigation
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
+""" END Split Pane Navigation
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+ 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START Nerdtree Configuration
 " Open nerdtree on trying to open directory
@@ -164,7 +186,7 @@ call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START Tagbar Configuration
-nmap <F8> :TagbarToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
 """ END Tagbar Configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -179,7 +201,7 @@ let g:ycm_min_num_of_chars_for_completion=4
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START Basic Look-and-Feel Settings
 " Turn on line numbers, relative line numbers, and ruler
-" set ruler
+set ruler
 set number
 augroup numbertoggle
     autocmd!
@@ -190,7 +212,10 @@ augroup END
 " Show existing tab with 4 spaces width
 " When indenting with '>', use 4 spaces width
 " On pressing tab, insert 4 spaces
-set tabstop=4 shiftwidth=4 smarttab expandtab
+set tabstop=4
+set shiftwidth=4
+set smarttab
+set expandtab
 
 " Always display status line
 set laststatus=1
@@ -221,15 +246,26 @@ hi ColorColumn ctermfg=red ctermbg=darkgrey
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Tab and Shift Tab Mappings
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+""" END Tab and Shift Tab Mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START Tabularize settings
 " For more advanced examples: https://gist.github.com/tpope/287147
-if exists(":Tabularize")
-" Examples:
+"if exists(":Tabularize")
+" E.g.:
 "    nmap <Leader>a= :Tabularize /=<CR>
 "    vmap <Leader>a= :Tabularize /=<CR>
 "    nmap <Leader>a: :Tabularize /:\zs<CR>
 "    vmap <Leader>a: :Tabularize /:\zs<CR>
-endif
+"endif
 """ END Tabularize settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -344,40 +380,9 @@ autocmd BufEnter *.md exe 'noremap <F5> : !/usr/bin/google-chrome %:p<CR><CR>'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Tab and Shift Tab Mappings
-nnoremap <Tab> >>_
-nnoremap <S-Tab> <<_
-inoremap <S-Tab> <C-d>
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
-""" END Tab and Shift Tab Mappings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Split Pane Navigation
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
-""" END Split Pane Navigation
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
- 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START Force Quit
 nnoremap <F4> :q!<CR>
 """ END Force Quit
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Autoreload
-augroup myvimrc
-    au!
-    au BufWritePost .vimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-augroup END
-""" END Autoreload
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
