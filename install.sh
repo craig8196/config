@@ -36,7 +36,9 @@ fi
 cp ~/config/vimrc ~/.vimrc
 
 # General
-sudo apt -y exuberant-ctags install build-essential cmake
+sudo apt -y install exuberant-ctags build-essential cmake libssl-dev
+# For building some projects
+sudo apt -y install libssl-dev
 
 # Python
 sudo apt -y install python python3 python3-dev
@@ -67,6 +69,10 @@ curl https://sh.rustup.rs -sSf | sh
 
 # Haskell
 sudo apt install -y ghc
+
+# Javascript/Nodejs
+sudo apt install -y nodejs
+curl https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
 ###### These were for classes, but are no longer needed. ######
 # Spin Prerequisites
