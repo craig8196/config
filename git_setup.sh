@@ -5,6 +5,8 @@ exit 1
 
 # Run the following commands as a user
 
+# Install git
+sudo apt -y install git
 # Setup git user
 sudo adduser git
 su git
