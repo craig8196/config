@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO add install for git gnome-keychain and needed commands to make it
-
 # Run under sudo
 # This will install desired Ubuntu applications
 
