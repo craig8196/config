@@ -87,7 +87,7 @@ Plugin 'scrooloose/syntastic'
 " Simple change surround in normal mode: cs<from><to>
 Plugin 'tpope/vim-surround'
 " Completion and suggestions
-" TODO Currently conflicts with my inoremap <S-Tab> mapping
+" Conflicts with my inoremap <S-Tab> mapping
 " Plugin 'valloric/youcompleteme'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -114,7 +114,6 @@ Plugin 'plasticboy/vim-markdown'
 
 " CSS
 Plugin 'ap/vim-css-color'
-
 
 " OSX stupid backspace fix
 set backspace=indent,eol,start
@@ -242,6 +241,20 @@ let base16colorspace=256
 set colorcolumn=81
 hi ColorColumn ctermfg=red ctermbg=darkgrey
 """ END Basic Look-and-Feel Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Deoplete tab configuration
+function! s:check_back_space() abort "{{{
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" : 
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ deoplete#manual_complete()
+""" END Deoplete tab configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
