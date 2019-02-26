@@ -14,8 +14,11 @@ sudo apt -y install curl wget
 # Install git
 sudo apt -y install git
 
-# Install ctags
-sudo apt -y install exuberant-ctags
+# Install filesystem utils
+sudo apt -y install mdadm gparted cifs-utils
+
+# Networking Utilities
+sudo apt -y install net-tools
 
 # Install XML tools (used in vim commands)
 sudo apt -y install libxml2-utils
@@ -35,7 +38,7 @@ fi
 cp ~/config/vimrc ~/.vimrc
 
 # General
-sudo apt -y install build-essential cmake
+sudo apt -y exuberant-ctags install build-essential cmake
 
 # Python
 sudo apt -y install python python3 python3-dev
@@ -65,18 +68,7 @@ sudo apt -y install libexpat1 libexpat1-dev
 curl https://sh.rustup.rs -sSf | sh
 
 # Haskell
-#apt install -y software-properties-common
-#add-apt-repository -y ppa:hvr/ghc
-#apt update
-#apt install -y cabal-install-1.22 ghc-7.10.3
-#cat >> ~/.bashrc <<EOF
-#export PATH="\$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:\$PATH"
-#EOF
-#export PATH=~/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH
-## Stack
-#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442
-#echo 'deb http://download.fpcomplete.com/ubuntu trusty main'|sudo tee /etc/apt/sources.list.d/fpco.list
-#sudo apt-get update && sudo apt-get install stack -y
+sudo apt install -y ghc
 
 ###### These were for classes, but are no longer needed. ######
 # Spin Prerequisites
