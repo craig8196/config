@@ -48,6 +48,7 @@ sudo apt -y install ipython
 
 # Audio
 sudo apt -y install audacity
+sudo apt -y install pulseaudio pavucontrol
 
 # Video
 sudo apt -y install vlc
