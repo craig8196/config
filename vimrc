@@ -225,6 +225,9 @@ let g:elite_mode=1
 " Highlight cursor line
 set cursorline
 
+" Highlight search terms
+set hlsearch
+
 " Set color scheme
 " Colors get reset when setting this so we do it first
 set t_Co=256
