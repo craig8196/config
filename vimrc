@@ -215,6 +215,8 @@ set tabstop=4
 set shiftwidth=4
 set smarttab
 set expandtab
+set autoindent
+set smartindent
 
 " Always display status line
 set laststatus=1
@@ -353,10 +355,17 @@ autocmd FileType c set foldnestmax=1
 """ END C Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Markdown Settings
+let g:vim_markdown_folding_level = 1
+autocmd FileType markdown set conceallevel=2
+""" END Markdown Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START JavaScript Settings
-autocmd FileType javascript set tabstop=2|set shiftwidth=2
+autocmd FileType javascript set tabstop=2|set shiftwidth=2|set autoindent|set smartindent
 """ END JavaScript Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
