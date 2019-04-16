@@ -399,7 +399,7 @@ command! -nargs=0 HexSave %!xxd -r
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START Markdown Settings
 " Open markdown files with Chrome.
-autocmd BufEnter *.md exe 'noremap <F5> : !/usr/bin/google-chrome %:p<CR><CR>'
+autocmd BufEnter *.md exe 'noremap <F5> : !/usr/bin/google-chrome "%:p">/dev/null 2>&1 & <CR><CR>'
 """ END Markdown Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
