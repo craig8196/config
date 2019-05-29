@@ -2,12 +2,30 @@
 "                          Craig's Vim Configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" TODO Plugins to review and maybe add:
+" Nerdcommenter
+" vim gitgutter
+
+" Post plugin installation steps:
+" TODO document here
+
+" Do NOT install these plugins (causes conflicts):
+" No reason previously documented...
+"  Plugin 'ervandew/supertab'
+" Conflicts with my inoremap <S-Tab> mapping
+"  Plugin 'valloric/youcompleteme'
+" Don't use vim-autoclose with youcompleteme, causes issue with exiting from
+" insert to normal mode, and can be a bit annoying for some things
+"  Plugin 'townk/vim-autoclose'
+" Deactivated ultisnips because it interferes with shift tab in visual mode
+"  Plugin 'SirVer/ultisnips'
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START Default Recommended Settings
 set nocompatible
 syntax on
-set nowrap
+"set nowrap
 set encoding=utf8
 """ END Default Recommended Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -66,8 +84,6 @@ Plugin 'danro/rename.vim'
 " nmap <F8> :TagbarToggle<CR>
 Plugin 'majutsushi/tagbar'
 " I don't think supertab is useful or being used at all.
-" Leave this comment here so I don't reinstall it.
-" Plugin 'ervandew/supertab'
 " <leader>ww on windows you want to swap.
 Plugin 'wesQ3/vim-windowswap'
 
@@ -80,33 +96,27 @@ Plugin 'gilsondev/searchtasks.vim'
 Plugin 'benmills/vimux'
 Plugin 'tpope/vim-dispatch'
 Plugin 'scrooloose/syntastic'
-" Don't use vim-autoclose with youcompleteme, causes issue with exiting from
-" insert to normal mode, and can be a bit annoying for some things
-" Plugin 'townk/vim-autoclose'
 " See documentation here: https://vimawesome.com/plugin/surround-vim
 " Simple change surround in normal mode: cs<from><to>
 Plugin 'tpope/vim-surround'
 " Completion and suggestions
-" Conflicts with my inoremap <S-Tab> mapping
-" Plugin 'valloric/youcompleteme'
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    let g:deoplete#enable_at_startup = 1
 else
-  Plugin 'Shougo/deoplete.nvim'
-  Plugin 'roxma/nvim-yarp'
-  Plugin 'roxma/vim-hug-neovim-rpc'
+    " I love this plugin but is often too slow to use effectively.
+    Plugin 'Shougo/deoplete.nvim'
+    Plugin 'roxma/nvim-yarp'
+    Plugin 'roxma/vim-hug-neovim-rpc'
+    let g:deoplete#enable_at_startup = 0
 endif
-let g:deoplete#enable_at_startup = 1
-" Deactivated ultisnips because it interferes with shift tab in visual mode
-" Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
 " Git
 Plugin 'tpope/vim-fugitive'
 
 " Writing
-Plugin 'reedes/vim-pencil'
-" Plugin 'dpelle/vim-LanguageTool'
+" :GrammarousCheck
 Plugin 'rhysd/vim-grammarous'
 
 " Markdown
@@ -114,6 +124,9 @@ Plugin 'plasticboy/vim-markdown'
 
 " CSS
 Plugin 'ap/vim-css-color'
+
+" Vue.js
+Plugin 'posva/vim-vue'
 
 " OSX stupid backspace fix
 set backspace=indent,eol,start
@@ -256,9 +269,9 @@ function! s:check_back_space() abort "{{{
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" : 
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ deoplete#manual_complete()
+    \ pumvisible() ? "\<C-n>" : 
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ deoplete#manual_complete()
 """ END Deoplete tab configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -365,8 +378,18 @@ autocmd FileType markdown set conceallevel=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START JavaScript Settings
-autocmd FileType javascript set tabstop=2|set shiftwidth=2|set autoindent|set smartindent
+autocmd FileType javascript
+    \ set tabstop=2|set shiftwidth=2|set autoindent|set smartindent
 """ END JavaScript Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START HTML/XML/SVG Settings
+autocmd FileType html set tabstop=2|set shiftwidth=2
+autocmd FileType svg set tabstop=2|set shiftwidth=2
+autocmd FileType xml set tabstop=2|set shiftwidth=2
+""" END HTML/XML/SVG Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -399,8 +422,16 @@ command! -nargs=0 HexSave %!xxd -r
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START Markdown Settings
 " Open markdown files with Chrome.
-autocmd BufEnter *.md exe 'noremap <F5> : !/usr/bin/google-chrome "%:p">/dev/null 2>&1 & <CR><CR>'
+autocmd BufEnter *.md exe
+    \ 'noremap <F5> : !/usr/bin/google-chrome "%:p">/dev/null 2>&1 & <CR><CR>'
 """ END Markdown Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Vue.js Settings
+autocmd FileType vue set tabstop=2|set shiftwidth=2
+autocmd FileType vue syntax sync fromstart
+""" END Vue.js Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -410,6 +441,42 @@ nnoremap <F4> :q!<CR>
 """ END Force Quit
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Split Line
+" From: github.com/drzel/vim-split-line
+" Code was short enough that I didn't want to have to install it...
+" Also, I may want/need to tweak it to my liking.
+function! SplitLine() abort
+  let l:cnum = col('.')
+  let l:lnum = line('.')
+
+  if l:cnum == 1
+    call append(l:lnum - 1, '')
+  else
+    let l:line = getline('.')
+
+    let l:first_line = l:line[0:(l:cnum - 2)]
+    let l:first_line = RStrip(l:first_line)
+    let l:second_line = l:line[(l:cnum - 1):-1]
+
+    call setline(l:lnum, l:first_line)
+    call append(l:lnum, l:second_line)
+
+    call cursor(l:lnum + 1, 1)
+    normal! ==
+  endif
+endfunction
+
+function! RStrip(str) abort
+  return substitute(a:str, '\s\+$', '', '')
+endfunction
+
+command! SplitLine call SplitLine()
+
+nnoremap S :SplitLine<CR>
+""" END Split Line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " I don't remember what this is for... why noremap space to za?
 " Toggles fold though...
