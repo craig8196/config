@@ -257,7 +257,10 @@ let base16colorspace=256
 
 " Set 80+ characters column line
 set colorcolumn=81
-hi ColorColumn ctermfg=red ctermbg=darkgrey
+hi ColorColumn ctermfg=Red ctermbg=DarkGrey
+
+" Set Folded Background so the gray isn't too bright
+hi Folded guibg=DarkSlateGray
 """ END Basic Look-and-Feel Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
