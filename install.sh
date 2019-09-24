@@ -72,7 +72,7 @@ curl https://sh.rustup.rs -sSf | sh
 sudo apt install -y ghc
 
 # Javascript/Nodejs
-sudo apt install -y nodejs
+sudo apt install -y nodejs npm
 curl https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
 ###### These were for classes, but are no longer needed. ######
