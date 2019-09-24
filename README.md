@@ -16,6 +16,19 @@ sudo dd bs=4M if=~/Downloads/<?>.iso of=/dev/sd<?> conv=fdatasync status=progres
 ```
 
 
+## Manual WiFi Driver Installation
+For some reason my wifi card doesn't work automatically on installation.
+You can download the needed packages on another machine and then install
+them manually from a USB drive.
+```bash
+sudo apt --download-only install broadcom-sta-dkms dkms
+```
+On the target machine run something like:
+```bash
+sudo dpkg -i broadcom-sta-dkms_all.deb dkms_all.deb
+```
+
+
 ## Chrome and Spotify
 Must be installed by going to provider's website.
 
