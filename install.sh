@@ -28,12 +28,12 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 # Copy current vim configurations.
 if [ -f ~/.vimrc ]; 
 then
-    echo "Removing existing .vimrc"
-    rm ~/.vimrc
+    echo "Moving existing .vimrc"
+    mv ~/.vimrc ~/.vimrc.backup
 else
-    echo "No .vimrc to replace"
+# No .vimrc to replace
 fi
-cp ~/config/vimrc ~/.vimrc
+cp vimrc ~/.vimrc
 
 # General
 sudo apt -y install exuberant-ctags build-essential cmake libssl-dev
@@ -64,6 +64,10 @@ sudo apt -y install libuv0.10 libuv0.10-dbg libuv0.10-dev
 sudo apt -y install libuv1 libuv1-dbg libuv1-dev
 sudo apt -y install libcurl4-openssl-dev
 sudo apt -y install libexpat1 libexpat1-dev
+sudo apt -y install cppcheck
+sudo apt -y install clang clang-tools
+sudo apt -y install llvm
+sudo apt -y install linux-tools-common
 
 # Rust
 curl https://sh.rustup.rs -sSf | sh
