@@ -37,6 +37,8 @@ cp vimrc ~/.vimrc
 
 # General
 sudo apt -y install exuberant-ctags build-essential cmake libssl-dev
+# For OS development (build-essential installed above)
+sudo apt -y install genisoimage nasm bochs bochs-sdl
 # For building some projects
 sudo apt -y install libssl-dev
 
