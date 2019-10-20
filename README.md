@@ -33,6 +33,20 @@ sudo dpkg -i broadcom-sta-dkms_all.deb dkms_all.deb
 Must be installed by going to provider's website.
 
 
+## Mount RAID5
+The system should automatically put the raid array together.
+To mount the raid after fresh install:
+```bash
+sudo mkdir /mnt/raid
+sudo mount /dev/md2 /mnt/raid
+```
+Take the line from /etc/mtab and add to /etc/fstab.
+Change the /dev/md2 to UUID=. Get the UUID from running:
+```bash
+sudo blkid /dev/md2
+```
+
+
 ## Git User Setup
 Run the following commands:
 ```bash

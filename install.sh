@@ -30,7 +30,7 @@ if [ -f ~/.vimrc ];
 then
     echo "Moving existing .vimrc"
     mv ~/.vimrc ~/.vimrc.backup
-else
+#else
 # No .vimrc to replace
 fi
 cp vimrc ~/.vimrc
