@@ -10,6 +10,5 @@ dconf load /org/gnome/terminal/ < gnome_terminal.conf
 # Load paths to locations on RAID5 array
 if [ -e "/dev/md2" ]; then
     cp "user-dirs.dirs" ~/.config/
-    ln -s /mnt/raid/home/craig/Projects ~/Projects
 fi
 
