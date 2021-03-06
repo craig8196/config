@@ -22,7 +22,7 @@ sudo apt -y install net-tools
 sudo apt -y install libxml2-utils
 
 # Text editor and additions
-sudo apt -y install vim
+sudo apt -y install vim tmux
 # Install Vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 # Copy current vim configurations.
