@@ -46,7 +46,7 @@ sudo apt -y install libssl-dev
 sudo apt -y install python python3 python3-dev
 sudo apt -y install python-pip python-numpy python-scipy python3-pip
 pip3 install neovim
-sudo apt -y install ipython
+sudo apt -y install ipython3
 
 # Audio
 sudo apt -y install audacity
