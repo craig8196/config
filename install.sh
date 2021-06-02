@@ -1,25 +1,12 @@
 #!/bin/bash
 
-# Run under sudo
 # This will install desired Ubuntu applications
 
 # Update before proceeding
 sudo apt update
 
-# Curl and Wget for other installations
-sudo apt -y install curl wget
-
 # Install git
 sudo apt -y install git
-
-# Install filesystem utils
-sudo apt -y install mdadm gparted cifs-utils
-
-# Networking Utilities
-sudo apt -y install net-tools
-
-# Install XML tools (used in vim commands)
-sudo apt -y install libxml2-utils
 
 # Text editor and additions
 sudo apt -y install vim tmux
@@ -30,10 +17,22 @@ if [ -f ~/.vimrc ];
 then
     echo "Moving existing .vimrc"
     mv ~/.vimrc ~/.vimrc.backup
+fi
 #else
 # No .vimrc to replace
-fi
 cp vimrc ~/.vimrc
+
+# Curl and Wget for other installations
+sudo apt -y install curl wget
+
+# Install filesystem utils
+sudo apt -y install mdadm gparted cifs-utils
+
+# Networking Utilities
+sudo apt -y install net-tools
+
+# Install XML tools (used in vim commands)
+sudo apt -y install libxml2-utils
 
 # General
 sudo apt -y install exuberant-ctags build-essential cmake libssl-dev
@@ -43,8 +42,8 @@ sudo apt -y install genisoimage nasm bochs bochs-sdl
 sudo apt -y install libssl-dev
 
 # Python
-sudo apt -y install python python3 python3-dev
-sudo apt -y install python-pip python-numpy python-scipy python3-pip
+sudo apt -y install python3 python3-dev
+sudo apt -y install python3-pip python3-numpy python3-scipy
 pip3 install neovim
 sudo apt -y install ipython3
 
@@ -62,7 +61,7 @@ sudo apt -y install gimp inkscape
 # C
 sudo apt -y install gcc
 sudo apt -y install valgrind
-sudo apt -y install libuv0.10 libuv0.10-dbg libuv0.10-dev
+#sudo apt -y install libuv0.10 libuv0.10-dbg libuv0.10-dev
 sudo apt -y install libuv1 libuv1-dbg libuv1-dev
 sudo apt -y install libcurl4-openssl-dev
 sudo apt -y install libexpat1 libexpat1-dev
@@ -78,8 +77,8 @@ curl https://sh.rustup.rs -sSf | sh
 sudo apt install -y ghc
 
 # Javascript/Nodejs
-sudo apt install -y libssl1.0-dev nodejs-dev node-gyp nodejs npm
-curl https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+#sudo apt install -y libssl1.0-dev nodejs-dev node-gyp nodejs npm
+#curl https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
 ###### These were for classes, but are no longer needed. ######
 # Spin Prerequisites
