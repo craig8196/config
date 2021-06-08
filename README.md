@@ -29,11 +29,20 @@ sudo dpkg -i broadcom-sta-dkms_all.deb dkms_all.deb
 ```
 
 
-## Chrome and Spotify
+## Chrome, Spotify, Steam
 Must be installed by going to provider's website.
+Spotify might install with:
+```bash
+sudo snap install spotify
+```
+Steam might install with multiverse enabled:
+```bash
+sudo apt install steam
+```
 
 
 ## Mount RAID5
+Running the `install.sh` script will install `mdadm`.
 The system should automatically put the raid array together.
 To mount the raid after fresh install:
 ```bash
@@ -45,6 +54,7 @@ Change the /dev/md2 to UUID=. Get the UUID from running:
 ```bash
 sudo blkid /dev/md2
 ```
+Restart and test that the RAID5 mounts, then run `mk_sym_links.sh`.
 
 
 ## Git User Setup
