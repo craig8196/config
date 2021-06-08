@@ -77,3 +77,9 @@ echo $(which git-shell) | sudo tee -a /etc/shells
 sudo chsh git -s $(which git-shell)
 ```
 
+
+## SSH
+How to generate elliptical curve key for `github.com`.
+```bash
+ssh-keygen -t ed25519 -C "craig.crj@gmail.com"
+```
