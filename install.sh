@@ -62,7 +62,7 @@ sudo apt -y install gimp inkscape
 sudo apt -y install gcc
 sudo apt -y install valgrind
 #sudo apt -y install libuv0.10 libuv0.10-dbg libuv0.10-dev
-sudo apt -y install libuv1 libuv1-dbg libuv1-dev
+sudo apt -y install libuv1 libuv1-dev #libuv1-dbg
 sudo apt -y install libcurl4-openssl-dev
 sudo apt -y install libexpat1 libexpat1-dev
 sudo apt -y install cppcheck
@@ -85,13 +85,6 @@ sudo apt install -y ghc
 # apt-get -y install byacc flex
 # R
 # sudo apt-get -y install r-base r-base-core
-
-# Install Chrome
-#echo "Installing Google Chrome"
-#wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-#dpkg -i google-chrome-stable_current_amd64.deb
-#rm -f google-chrome-stable_current_amd64.deb
-#apt-get -y -f install
 
 # Install Java 8
 #echo "Installing Java 8"
