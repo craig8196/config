@@ -19,3 +19,8 @@ do
     fi
 done
 
+# Load paths to locations on RAID5 array
+if [ -e "/dev/md2" ]; then
+    cp "user-dirs.dirs" ~/.config/
+fi
+
