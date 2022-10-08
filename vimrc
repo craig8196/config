@@ -130,8 +130,18 @@ Plugin 'plasticboy/vim-markdown'
 " CSS
 Plugin 'ap/vim-css-color'
 
+" JSX
+" Plugin 'mxw/vim-jsx'
+
+" Typescript
+" Plugin 'leafgarland/typescript-vim'
+Plugin 'quramy/tsuquyomi'
+
 " Vue.js
 Plugin 'posva/vim-vue'
+
+" YAML
+Plugin 'stephpy/vim-yaml'
 
 " OSX stupid backspace fix
 set backspace=indent,eol,start
@@ -357,6 +367,10 @@ let g:syntastic_python_checkers = ['pylint']
 " Javascript/JSX configurations
 let g:syntastic_javascript_checkers = ['eslint']
 
+" Typescript
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi']
+
 " Enable omni completion.
 " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -381,6 +395,24 @@ autocmd FileType c set foldnestmax=1
 let g:vim_markdown_folding_level = 1
 autocmd FileType markdown set conceallevel=2
 """ END Markdown Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START yaml Settings
+autocmd FileType yaml
+    \ set tabstop=2|set shiftwidth=2|set autoindent|set smartindent
+""" END yaml Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" START Typescript Settings
+autocmd FileType typescript
+    \ set tabstop=2|set shiftwidth=2|set autoindent|set smartindent
+let g:tsuquyomi_completion_detail = 1
+autocmd FileType typescript setlocal completeopt+=menu,preview
+""" END Typescript Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
