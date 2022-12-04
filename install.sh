@@ -17,10 +17,10 @@ if [ -f ~/.vimrc ];
 then
     echo "Moving existing .vimrc"
     mv ~/.vimrc ~/.vimrc.backup
-fi
-#else
+else
 # No .vimrc to replace
-cp vimrc ~/.vimrc
+    cp vimrc ~/.vimrc
+fi
 
 # Curl and Wget for other installations
 sudo apt -y install curl wget
@@ -46,7 +46,6 @@ sudo apt -y install libssl-dev
 # Python
 sudo apt -y install python3 python3-dev
 sudo apt -y install python3-pip python3-numpy python3-scipy
-pip3 install neovim
 sudo apt -y install ipython3
 
 # Audio
