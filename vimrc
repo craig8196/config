@@ -14,7 +14,7 @@
 " Post plugin installation steps:
 " TODO document here
 
-" Do NOT install these plugins (causes conflicts):
+" DO NOT install these plugins (causes conflicts):
 " No reason previously documented...
 "  Plugin 'ervandew/supertab'
 " Conflicts with my inoremap <S-Tab> mapping
@@ -25,36 +25,75 @@
 " Deactivated ultisnips because it interferes with shift tab in visual mode
 "  Plugin 'SirVer/ultisnips'
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Default Recommended Settings
+""" Default Recommended Settings
 set nocompatible
 syntax on
 "set nowrap
 set encoding=utf8
-""" END Default Recommended Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START General Remaps
+""" General Remaps
 let mapleader=","
-""" END General Remaps
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Autoreload
+""" Autoreload Settings
 augroup myvimrc
     au!
     au BufWritePost .vimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
-""" END Autoreload
+
+""" Force Quit
+nnoremap <F4> :q!<CR>
+
+""" HEX Settings
+" Hex and save as hex
+command! -nargs=0 Hex %!xxd
+command! -nargs=0 HexSave %!xxd -r
+
+""" Allow space bar to open all folds?
+" I don't remember what this is for... why noremap space to za?
+" Toggles fold though...
+nnoremap <space> za
+
+""" Split Line
+" From: github.com/drzel/vim-split-line
+" Code was short enough that I didn't want to have to install it...
+" Also, I may want/need to tweak it to my liking.
+function! SplitLine() abort
+  let l:cnum = col('.')
+  let l:lnum = line('.')
+
+  if l:cnum == 1
+    call append(l:lnum - 1, '')
+  else
+    let l:line = getline('.')
+
+    let l:first_line = l:line[0:(l:cnum - 2)]
+    let l:first_line = RStrip(l:first_line)
+    let l:second_line = l:line[(l:cnum - 1):-1]
+
+    call setline(l:lnum, l:first_line)
+    call append(l:lnum, l:second_line)
+
+    call cursor(l:lnum + 1, 1)
+    normal! ==
+  endif
+endfunction
+
+function! RStrip(str) abort
+  return substitute(a:str, '\s\+$', '', '')
+endfunction
+
+command! SplitLine call SplitLine()
+
+nnoremap S :SplitLine<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Vundle Configuration
+""" Vundle Configurations
 
 " Disable file type for vundle
 filetype off
@@ -74,11 +113,6 @@ Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'scrooloose/nerdtree'
 " Will place git characters next to changed/tracked files
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-" Tabular is about aligning text
-" http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
-" :Tabularize /<regex>
-" :Tab /<regex>
-Plugin 'godlygeek/tabular'
 " Run :BufOnly to close all buffers but the current one
 Plugin 'BufOnly.vim'
 " Fuzzy file finder, use <c-p> to invoke
@@ -150,20 +184,14 @@ call vundle#end()
 filetype plugin indent on
 
 """ END Vundle Configuration
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START Split Pane Navigation
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 """ END Split Pane Navigation
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
  
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ START Nerdtree Configuration
 " Open nerdtree on trying to open directory
 autocmd StdinReadPre * let s:std_in=1
@@ -212,21 +240,16 @@ call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Tagbar Configuration
+""" Tagbar Configuration
 nnoremap <F8> :TagbarToggle<CR>
-""" END Tagbar Configuration
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START youcompleteme Configuration
+""" youcompleteme Configuration
 let g:ycm_min_num_of_chars_for_completion=4
-""" END youcompleteme Configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Basic Look-and-Feel Settings
+""" Basic Look-and-Feel Settings
 " Turn on line numbers, relative line numbers, and ruler
 set ruler
 set number
@@ -239,8 +262,8 @@ augroup END
 " Show existing tab with 4 spaces width
 " When indenting with '>', use 4 spaces width
 " On pressing tab, insert 4 spaces
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set smarttab
 set expandtab
 set autoindent
@@ -276,12 +299,11 @@ hi ColorColumn ctermfg=Red ctermbg=DarkGrey
 
 " Set Folded Background so the gray isn't too bright
 hi Folded guibg=DarkSlateGray
-""" END Basic Look-and-Feel Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Deoplete tab configuration
+""" Deoplete tab configuration
 function! s:check_back_space() abort "{{{
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
@@ -290,37 +312,21 @@ inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" : 
     \ <SID>check_back_space() ? "\<TAB>" :
     \ deoplete#manual_complete()
-""" END Deoplete tab configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Tab and Shift Tab Mappings
+""" Tab and Shift Tab Mappings
 nnoremap <Tab> >>_
 nnoremap <S-Tab> <<_
 inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-""" END Tab and Shift Tab Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Tabularize settings
-" For more advanced examples: https://gist.github.com/tpope/287147
-"if exists(":Tabularize")
-" E.g.:
-"    nmap <Leader>a= :Tabularize /=<CR>
-"    vmap <Leader>a= :Tabularize /=<CR>
-"    nmap <Leader>a: :Tabularize /:\zs<CR>
-"    vmap <Leader>a: :Tabularize /:\zs<CR>
-"endif
-""" END Tabularize settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Syntastic and AutoCompletion Settings
+""" Syntastic and AutoCompletion Settings
 " Syntastic error iteration shortcuts
 nnoremap <F1> :SyntasticToggleMode<CR>
 nnoremap <F2> :lnext<CR>
@@ -377,148 +383,62 @@ let g:syntastic_typescript_checkers = ['tsuquyomi']
 " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-""" END Syntastic and AutoCompletion Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START C Settings
+""" Programming Language Specific Settings
+
+""" C Settings
 " Set folding
 autocmd FileType c set foldmethod=syntax
-autocmd FileType c set foldnestmax=1
-"autocmd FileType c set foldclose=all
-""" END C Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType c set foldnestmax=2
+autocmd FileType c
+    \ set tabstop=4|set shiftwidth=4|set autoindent|set smartindent
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Markdown Settings
-let g:vim_markdown_folding_level = 1
-autocmd FileType markdown set conceallevel=2
-""" END Markdown Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START yaml Settings
-autocmd FileType yaml
+""" Haskell Settings
+autocmd FileType hs
     \ set tabstop=2|set shiftwidth=2|set autoindent|set smartindent
-""" END yaml Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Typescript Settings
-autocmd FileType typescript
-    \ set tabstop=2|set shiftwidth=2|set autoindent|set smartindent
-let g:tsuquyomi_completion_detail = 1
-autocmd FileType typescript setlocal completeopt+=menu,preview
-""" END Typescript Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START JavaScript Settings
-autocmd FileType javascript
-    \ set tabstop=2|set shiftwidth=2|set autoindent|set smartindent
-""" END JavaScript Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START HTML/XML/SVG Settings
+""" HTML/XML/SVG Settings
 autocmd FileType html set tabstop=2|set shiftwidth=2
 autocmd FileType svg set tabstop=2|set shiftwidth=2
 autocmd FileType xml set tabstop=2|set shiftwidth=2
-""" END HTML/XML/SVG Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""" JavaScript Settings
+autocmd FileType javascript
+    \ set tabstop=2|set shiftwidth=2|set autoindent|set smartindent
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START JSON Settings
+""" JSON Settings
 autocmd FileType json set tabstop=2|set shiftwidth=2
-command! -nargs=0 JsonPretty %!python -m json.tool
-""" END JSON Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType json command! -nargs=0 JsonPretty %!python3 -m json.tool
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START XML Settings
-let g:xml_syntax_folding=1
-autocmd FileType xml set tabstop=2|set shiftwidth=2|setlocal foldmethod=syntax
-command! -nargs=0 XmlPretty %!xmllint --format %
-""" END XML Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START HEX Settings
-" Hex and save as hex
-command! -nargs=0 Hex %!xxd
-command! -nargs=0 HexSave %!xxd -r
-""" END HEX Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Markdown Settings
+""" Markdown Settings
+let g:vim_markdown_folding_level = 1
+autocmd FileType markdown set conceallevel=2
+autocmd FileType md
+    \ set tabstop=2|set shiftwidth=2|set autoindent|set smartindent
 " Open markdown files with Chrome.
 autocmd BufEnter *.md exe
     \ 'noremap <F5> : !/usr/bin/google-chrome "%:p">/dev/null 2>&1 & <CR><CR>'
-""" END Markdown Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Vue.js Settings
+""" Typescript Settings
+autocmd FileType typescript
+    \ set tabstop=2|set shiftwidth=2|set autoindent|set smartindent
+autocmd FileType typescript let g:tsuquyomi_completion_detail = 1
+autocmd FileType typescript setlocal completeopt+=menu,preview
+
+""" Vue.js Settings
 autocmd FileType vue set tabstop=2|set shiftwidth=2
 autocmd FileType vue syntax sync fromstart
-""" END Vue.js Settings
+
+""" XML Settings
+autocmd FileType xml let g:xml_syntax_folding=1
+autocmd FileType xml set tabstop=2|set shiftwidth=2|setlocal foldmethod=syntax
+autocmd FileType xml command! -nargs=0 XmlPretty %!xmllint --format %
+
+""" yaml Settings
+autocmd FileType yaml
+    \ set tabstop=2|set shiftwidth=2|set autoindent|set smartindent
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Force Quit
-nnoremap <F4> :q!<CR>
-""" END Force Quit
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" START Split Line
-" From: github.com/drzel/vim-split-line
-" Code was short enough that I didn't want to have to install it...
-" Also, I may want/need to tweak it to my liking.
-function! SplitLine() abort
-  let l:cnum = col('.')
-  let l:lnum = line('.')
-
-  if l:cnum == 1
-    call append(l:lnum - 1, '')
-  else
-    let l:line = getline('.')
-
-    let l:first_line = l:line[0:(l:cnum - 2)]
-    let l:first_line = RStrip(l:first_line)
-    let l:second_line = l:line[(l:cnum - 1):-1]
-
-    call setline(l:lnum, l:first_line)
-    call append(l:lnum, l:second_line)
-
-    call cursor(l:lnum + 1, 1)
-    normal! ==
-  endif
-endfunction
-
-function! RStrip(str) abort
-  return substitute(a:str, '\s\+$', '', '')
-endfunction
-
-command! SplitLine call SplitLine()
-
-nnoremap S :SplitLine<CR>
-""" END Split Line
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" I don't remember what this is for... why noremap space to za?
-" Toggles fold though...
-nnoremap <space> za
-
